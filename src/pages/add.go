@@ -7,17 +7,17 @@ import (
 	"github.com/yaron/wishlist-images/src/utils"
 )
 
-// Add creates new wishlist items in the db
+// Add creates new images on the local filesystem
 func Add(c *gin.Context) {
 	var json utils.Image
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	err := utils.AddItem(json)
+	filename, err := utils.AddItem(json)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(200, gin.H{"status": "Item added"})
+	c.JSON(200, gin.H{"status": "Item added", "localUri": filename})
 }

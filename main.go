@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -13,10 +14,11 @@ import (
 func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
-	//r.GET("/list", pages.List)
 	authorized := r.Group("/", jWTAuth)
 	authorized.POST("/add", pages.Add)
-	//authorized.POST("/delete/:id", pages.Delete)
+
+	localPath := os.Getenv("WISH_FILE_PATH")
+	r.Static("/images", localPath)
 	r.Run()
 }
 
