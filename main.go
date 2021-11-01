@@ -16,6 +16,7 @@ func main() {
 	r.Use(CORSMiddleware())
 	authorized := r.Group("/", jWTAuth)
 	authorized.POST("/add", pages.Add)
+	authorized.POST("/parse", pages.Parse)
 
 	localPath := os.Getenv("WISH_FILE_PATH")
 	r.Static("/images", localPath)

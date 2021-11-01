@@ -9,3 +9,7 @@ type Image struct {
 type Key struct {
 	Key rsa.PublicKey `json:"key"`
 }
+
+type Page struct {
+	URI string `json:"uri"`
+}
