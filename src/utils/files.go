@@ -4,7 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -24,13 +24,13 @@ func AddItem(f Image) (string, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return "", fmt.Errorf("Unable to parse http response body %v", err)
 	}
 
 	localPath := os.Getenv("WISH_FILE_PATH")
-	err = ioutil.WriteFile(localPath+"/"+filename, body, 0666)
+	err = os.WriteFile(localPath+"/"+filename, body, 0666)
 	if err != nil {
 		return "", fmt.Errorf("Unable to save image %v", err)
 	}
