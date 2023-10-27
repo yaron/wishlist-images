@@ -6,5 +6,6 @@ metadata:
     github.com/project-slug: yaron/wishlist-images
 spec:
   type: other
-  lifecycle: unknown
+  lifecycle: experimental
   owner: guests
+  system: examples
